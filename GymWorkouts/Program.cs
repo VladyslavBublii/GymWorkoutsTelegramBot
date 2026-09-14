@@ -3,13 +3,21 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
-var client = new TelegramBotClient("5121111549:AAEEfm8X_AisJTac3vrQ8obi1wPDE1_zU7c");
+var token = Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN");
+
+if (string.IsNullOrWhiteSpace(token))
+{
+    Console.WriteLine("Error: veriable TELEGRAM_BOT_TOKEN not found.");
+    return;
+}
+
+var client = new TelegramBotClient(token);
 
 await client.DeleteWebhook();
 
 client.StartReceiving(Update, Error);
 
-Console.WriteLine("Бот запущен...");
+Console.WriteLine("Bot started...");
 Console.ReadLine();
 
 
